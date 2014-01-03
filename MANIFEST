@@ -1,0 +1,11 @@
+bin/failover.pl
+Build.PL
+lib/RedisFailover.pm
+lib/RedisFailover/Template.pm
+LICENSE
+MANIFEST
+nutcracker.yml.tt
+README.md
+t/00-load.t
+t/01-redis-sort.t
+t/02-write_config.t
