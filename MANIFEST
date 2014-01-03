@@ -4,7 +4,6 @@ lib/RedisFailover.pm
 lib/RedisFailover/Template.pm
 LICENSE
 MANIFEST
-nutcracker.yml.tt
 README.md
 t/00-load.t
 t/01-redis-sort.t

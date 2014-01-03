@@ -13,7 +13,7 @@ my $build = Module::Build->new(
         'YAML'  => 0,
         'Moo'   => 0,
     },
-    script_files = ['bin/failover.pl'],
+    script_files => ['bin/failover.pl'],
 );
 $build->create_build_script;
 
