@@ -11,15 +11,18 @@ use File::Basename;
 our $PROGNAME = basename($0);
 
 my $out = '/etc/nutcracker/nutcracker.yml';
+my $pid = '/tmp/redis_failover';
 
 GetOptions(
     "out|o=s" => \$out
 );
 
-while (1) {
-    my $other_failovers = `pgrep $PROGNAME`;
-    last if $other_failovers eq "";
-}
+while ( -f $pid ) { }
 
-my $failover = RedisFailover->new( out => $out );
-$failover->run;
+open my $fh, '>', $pid;
+close($fh);
+eval {
+    my $failover = RedisFailover->new( out => $out );
+    $failover->run;
+};
+unlink $pid;
