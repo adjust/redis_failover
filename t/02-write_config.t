@@ -9,7 +9,12 @@ BEGIN {
 }
 my( $fh, $filename ) = tempfile();
 
-my $failover = RedisFailover->new( out => $filename );
+my $failover = RedisFailover->new(
+    out => $filename,
+    sentinel => 'localhost:26379',
+    cmd => 'sudo /etc/init.d/nutcracker restart',
+    pretend => undef,
+);
 
 my $expected = <<END;
 redis_cluster:

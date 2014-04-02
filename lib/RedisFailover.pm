@@ -12,7 +12,10 @@ use RedisFailover::Template;
 
 our $VERSION = '0.01';
 
-has out => ( is => 'rw', required => 1 );
+has out      => ( is => 'ro', required => 1 );
+has sentinel => ( is => 'ro', required => 1 );
+has cmd      => ( is => 'ro', required => 1 );
+has pretend  => ( is => 'ro' );
 
 sub BUILD {
     my $self = shift;
@@ -27,7 +30,7 @@ sub run {
 
 sub _get_master {
     my $self    = shift;
-    my $r       = Redis->new( server => "localhost:26379" );
+    my $r       = Redis->new( server => $self->{sentinel} );
     my $masters = $r->sentinel("masters");
     return $self->_sort($masters);
 }
@@ -44,7 +47,11 @@ sub _write_config {
 
 sub _restart_nutcracker {
     my $self = shift;
-    system('sudo /etc/init.d/nutcracker restart');
+    if ( $self->pretend ) {
+        say $self->{cmd};
+        return;
+    }
+    system( $self->{cmd} ) or die $!;
 }
 
 sub _sort {
