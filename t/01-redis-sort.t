@@ -29,6 +29,8 @@ my $result3 = $failover->_sort($servers3);
 for (my $i = 0; $i < 3; $i++) {
     my $port = 6380+$i;
     is( @$result1[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
+    is( @$result2[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
+    is( @$result3[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
 }
 
 done_testing;
