@@ -7,7 +7,12 @@ BEGIN {
     use_ok 'RedisFailover';
 }
 
-my $failover = RedisFailover->new(out => '/tmp/tmp');
+my $failover = RedisFailover->new(
+    out => '/tmp/tmp',
+    pretend => undef,
+    cmd => 'sudo /etc/init.d/nutcracker restart',
+    sentinel => 'localhost:26379',
+);
 
 my $server1 = [ 'name', 'server_0', 'ip', '127.0.0.1', 'port', '6380' ];
 my $server2 = [ 'name', 'server_1', 'ip', '127.0.0.1', 'port', '6381' ];
