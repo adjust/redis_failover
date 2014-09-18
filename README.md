@@ -33,7 +33,7 @@ failover.pl --out <nutcracker.yml> --help
     --out       | -o output to specified file
                      default: '/etc/nutcracker/nutcracker.yml'
 
-    --pretend   | -p write config, but dont issue restart
+    --pretend   | -p write config, but don't issue restart
                      print nutcracker start command
                      default: false
 
@@ -43,7 +43,7 @@ failover.pl --out <nutcracker.yml> --help
     --help      | -h display this help and exit
 ```
 
-After sucessful installation add it to your sentinel config:
+After successful installation add it to your sentinel config:
 
 ```
 sentinel monitor my_master redis.example.com 6379 1

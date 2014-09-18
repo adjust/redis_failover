@@ -32,14 +32,14 @@ if ($check) {
         my $uid  = ( stat $out )[4];
         my $user = ( getpwuid $uid )[0];
         if ( $user ne 'redis' ) {
-            say 'it seems like the nutcracker config it not writable by redis user';
+            say 'it seems like the nutcracker config is not writable by redis user';
         }
     }
     {
         my $uid  = ( stat dirname($out) )[4];
         my $user = ( getpwuid $uid )[0];
         if ( $user ne 'redis' ) {
-            say 'it seems like the nutcracker config directory it not writable by redis user';
+            say 'it seems like the nutcracker config directory is not writable by redis user';
         }
     }
 
@@ -51,7 +51,7 @@ if ($help) {
     say "$PROGNAME --out <nutcracker.yml> --help";
     say "\t--sentinel  | -s define sentinel server";
     say "\t--out       | -o output to specified file";
-    say "\t--pretend   | -p write config, but dont issue restart";
+    say "\t--pretend   | -p write config, but don't issue restart";
     say "\t--check     | -c quick check if redis can rewrite nutcracker config";
     say "\t--help      | -h display this help";
     exit(0);
