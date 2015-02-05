@@ -51,7 +51,11 @@ sub _restart_nutcracker {
         say $self->{cmd};
         return;
     }
-    system( $self->{cmd} ) or die $!;
+    for ( 1 .. 3 ) {
+        my $return_val = system( $self->{cmd} );
+        last if $return_val == 0;
+        sleep(1);
+    }
 }
 
 sub _sort {
