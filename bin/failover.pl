@@ -13,7 +13,7 @@ our $PROGNAME = basename($0);
 my $sentinel = 'localhost:26379';
 my $out      = '/etc/nutcracker/nutcracker.yml';
 my $pid      = '/tmp/redis_failover';
-my $cmd      = 'sudo /etc/init.d/nutcracker restart';
+my $cmd      = '/bin/bash -l -c "sudo /etc/init.d/nutcracker restart"';
 my $pretend;
 my $check;
 my $help;
