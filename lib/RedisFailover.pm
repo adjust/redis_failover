@@ -53,6 +53,11 @@ sub _restart_nutcracker {
     }
     for ( 1 .. 3 ) {
         my $return_val = system( $self->{cmd} );
+        eval {
+            open my $fh, '>>', '/tmp/failover_return';
+            say $fh $return_val;
+            close($fh);
+        };
         last if $return_val == 0;
         sleep(1);
     }
