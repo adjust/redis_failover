@@ -28,6 +28,7 @@ $inotify->watch( $file, IN_MODIFY, sub {
         my $e = shift;
         ## TODO: alarm somehow
         system('rc-service nutcracker restart');
+        system('rc-service adjust_server restart');
       }
 );
 
