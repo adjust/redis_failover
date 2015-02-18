@@ -14,7 +14,6 @@ our $VERSION = '0.01';
 
 has out      => ( is => 'ro', required => 1 );
 has sentinel => ( is => 'ro', required => 1 );
-has cmd      => ( is => 'ro', required => 1 );
 has pretend  => ( is => 'ro' );
 
 sub BUILD {
@@ -25,7 +24,6 @@ sub run {
     my $self   = shift;
     my $server = $self->_get_master;
     $self->_write_config($server);
-    $self->_restart_nutcracker;
 }
 
 sub _get_master {
@@ -43,24 +41,6 @@ sub _write_config {
         file    => $self->{out},
     );
     $t->write;
-}
-
-sub _restart_nutcracker {
-    my $self = shift;
-    if ( $self->pretend ) {
-        say $self->{cmd};
-        return;
-    }
-    for ( 1 .. 3 ) {
-        my $return_val = system( $self->{cmd} );
-        eval {
-            open my $fh, '>>', '/tmp/failover_return';
-            say $fh $return_val;
-            close($fh);
-        };
-        last if $return_val == 0;
-        sleep(1);
-    }
 }
 
 sub _sort {

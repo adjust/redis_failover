@@ -9,11 +9,12 @@ my $build = Module::Build->new(
     license           => 'mit',
     build_requires    => { 'Module::Build' => 0.38, },
     requires          => {
-        'Redis' => 0,
-        'YAML'  => 0,
-        'Moo'   => 0,
+        'Redis'           => 0,
+        'YAML'            => 0,
+        'Moo'             => 0,
+        'Linux::Inotify2' => 0,
     },
-    script_files => ['bin/failover.pl'],
+    script_files => [ 'bin/failover.pl', 'bin/failover_watch.pl' ],
 );
 $build->create_build_script;
 

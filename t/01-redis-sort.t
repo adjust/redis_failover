@@ -8,9 +8,8 @@ BEGIN {
 }
 
 my $failover = RedisFailover->new(
-    out => '/tmp/tmp',
-    pretend => undef,
-    cmd => 'sudo /etc/init.d/nutcracker restart',
+    out      => '/tmp/tmp',
+    pretend  => undef,
     sentinel => 'localhost:26379',
 );
 
@@ -26,11 +25,11 @@ my $result1 = $failover->_sort($servers1);
 my $result2 = $failover->_sort($servers2);
 my $result3 = $failover->_sort($servers3);
 
-for (my $i = 0; $i < 3; $i++) {
-    my $port = 6380+$i;
-    is( @$result1[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
-    is( @$result2[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
-    is( @$result3[$i], "127.0.0.1:$port:1 server_$i", 'sort_test');
+for ( my $i = 0 ; $i < 3 ; $i++ ) {
+    my $port = 6380 + $i;
+    is( @$result1[$i], "127.0.0.1:$port:1 server_$i", 'sort_test' );
+    is( @$result2[$i], "127.0.0.1:$port:1 server_$i", 'sort_test' );
+    is( @$result3[$i], "127.0.0.1:$port:1 server_$i", 'sort_test' );
 }
 
 done_testing;
