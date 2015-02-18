@@ -13,14 +13,12 @@ our $PROGNAME = basename($0);
 my $sentinel = 'localhost:26379';
 my $out      = '/etc/nutcracker/nutcracker.yml';
 my $pid      = '/tmp/redis_failover';
-my $cmd = '/bin/bash -l -c "env >> /tmp/failover_env ;sudo /etc/init.d/nutcracker restart &> /tmp/failover_nutcracker"';
 my $pretend;
 my $check;
 my $help;
 
 GetOptions(
     "sentinel|s=s" => \$sentinel,
-    "command=s"    => \$cmd,
     "out|o=s"      => \$out,
     "pretend|p"    => \$pretend,
     "check|c"      => \$check,
@@ -66,7 +64,6 @@ eval {
     my $failover = RedisFailover->new(
         out      => $out,
         sentinel => $sentinel,
-        cmd      => $cmd,
         pretend  => $pretend,
     );
     $failover->run;

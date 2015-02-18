@@ -7,13 +7,12 @@ use File::Temp qw( tempfile );
 BEGIN {
     use_ok 'RedisFailover';
 }
-my( $fh, $filename ) = tempfile();
+my ( $fh, $filename ) = tempfile();
 
 my $failover = RedisFailover->new(
-    out => $filename,
+    out      => $filename,
     sentinel => 'localhost:26379',
-    cmd => 'sudo /etc/init.d/nutcracker restart',
-    pretend => undef,
+    pretend  => undef,
 );
 
 my $expected = <<END;
@@ -42,6 +41,6 @@ $failover->_write_config($servers);
 $/ = undef;
 my $result = <$fh>;
 
-is( $result, $expected, 'written config');
+is( $result, $expected, 'written config' );
 
 done_testing;
