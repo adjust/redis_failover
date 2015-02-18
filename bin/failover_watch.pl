@@ -24,14 +24,15 @@ unless ( defined($file) ) {
 
 my $inotify = new Linux::Inotify2;
 
-$inotify->watch( $file, IN_MODIFY, sub {
-        my $e = shift;
-        ## TODO: alarm somehow
-        system('rc-service nutcracker restart');
-        system('rc-service adjust_server restart');
-      }
-);
-
 while (1) {
+    $inotify->watch( $file, IN_MODIFY, sub {
+            my $e = shift;
+            ## TODO: alarm somehow
+            system('rc-service nutcracker restart');
+            system('rc-service adjust_server restart');
+            $e->w->cancel;
+          }
+    );
+
     $inotify->poll;
 }
