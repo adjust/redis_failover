@@ -69,7 +69,7 @@ eval {
 };
 eval {
     RedisFailover->new(
-        out      => $out,
+        out      => "socket_$out",
         sentinel => $sentinel,
         pretend  => $pretend,
         listen   => '/run/redis/nutcracker.sock',
