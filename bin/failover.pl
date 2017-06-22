@@ -61,11 +61,19 @@ while ( -f $pid ) { }
 open my $fh, '>', $pid;
 close($fh);
 eval {
-    my $failover = RedisFailover->new(
+    RedisFailover->new(
         out      => $out,
         sentinel => $sentinel,
         pretend  => $pretend,
-    );
-    $failover->run;
+    )->run;
 };
+eval {
+    RedisFailover->new(
+        out      => $out,
+        sentinel => $sentinel,
+        pretend  => $pretend,
+        listen   => '/run/redis/nutcracker.sock',
+    )->run;
+};
+
 unlink $pid;
