@@ -68,11 +68,12 @@ eval {
     )->run;
 };
 eval {
+    my $out =~ s/\.yml$/_socket.yml/;
     RedisFailover->new(
-        out      => "socket_$out",
-        sentinel => $sentinel,
-        pretend  => $pretend,
-        listen   => '/run/redis/nutcracker.sock',
+        out         => $out,
+        sentinel    => $sentinel,
+        pretend     => $pretend,
+        listen_addr => '/run/redis/nutcracker.sock',
     )->run;
 };
 
