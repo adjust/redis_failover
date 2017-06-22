@@ -10,11 +10,12 @@ use autodie;
 
 use RedisFailover::Template;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 has out      => ( is => 'ro', required => 1 );
 has sentinel => ( is => 'ro', required => 1 );
 has pretend  => ( is => 'ro' );
+has listen_addr => ( is => 'ro' );
 
 sub BUILD {
     my $self = shift;
@@ -37,8 +38,9 @@ sub _write_config {
     my $self   = shift;
     my $server = shift;
     my $t      = RedisFailover::Template->new(
-        servers => $server,
-        file    => $self->{out},
+        servers     => $server,
+        file        => $self->{out},
+        listen_addr => $self->{listen_addr},
     );
     $t->write;
 }
