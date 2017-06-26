@@ -68,7 +68,7 @@ eval {
     )->run;
 };
 eval {
-    my $out =~ s/\.yml$/_socket.yml/;
+    $out =~ s/\.yml$/_socket.yml/;
     RedisFailover->new(
         out         => $out,
         sentinel    => $sentinel,
