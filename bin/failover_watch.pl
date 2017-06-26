@@ -29,9 +29,11 @@ while (1) {
             my $e = shift;
             ## TODO: alarm somehow
             system('rc-service nutcracker restart');
+            system('rc-service nutcracker_socket restart');
             system('rc-service adjust_server restart');
+            system('rc-service adjust_server2 restart');
             $e->w->cancel;
-          }
+        }
     );
 
     $inotify->poll;
